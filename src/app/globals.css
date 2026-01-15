@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
+/* Light theme (default) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f5f5;
+  --foreground: #111111;
+  --text: #606060;
+  --blue: #1f6fd8;
+  --blue-hover: #1a5db8;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(31, 111, 216, 0.2);
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --gradient-start: rgba(31, 111, 216, 0.05);
+  --gradient-end: rgba(31, 111, 216, 0.02);
+}
+
+/* Dark theme */
+.dark {
+  --background: #0d1117;
+  --foreground: #e5e5e5;
+  --text: #bfd3e8;
+  --blue: #0093ee;
+  --blue-hover: #00a8ff;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --shadow: rgba(0, 147, 238, 0.1);
+  --shadow-hover: rgba(0, 147, 238, 0.3);
+  --nav-bg: rgba(13, 17, 23, 0.9);
+  --gradient-start: rgba(0, 147, 238, 0.1);
+  --gradient-end: rgba(0, 147, 238, 0.02);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-text: var(--text);
+  --color-blue: var(--blue);
+  --color-blue-hover: var(--blue-hover);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-shadow: var(--shadow);
+  --color-shadow-hover: var(--shadow-hover);
+  --color-nav-bg: var(--nav-bg);
+  --color-gradient-start: var(--gradient-start);
+  --color-gradient-end: var(--gradient-end);
+  --font-sans: "Roboto", system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Smooth theme transition */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-hover);
+}
+
+/* Selection */
+::selection {
+  background: var(--blue);
+  color: white;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar during page transitions */
+.overflow-hidden {
+  overflow: hidden;
 }
