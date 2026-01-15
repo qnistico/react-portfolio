@@ -8,8 +8,11 @@ import {
   Zap,
   Users,
   Layers,
+  Network,
+  Bot
 } from "lucide-react";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { StripeGrid, StripeGridItem } from "@/components/ui/StripeGrid";
 
 const expertiseItems = [
   {
@@ -48,12 +51,26 @@ const expertiseItems = [
     description:
       "Build consistent, reusable UI components and interactive prototypes in Figma or similar tools.",
   },
+  {
+  icon: Bot,
+  title: "AI-Augmented Development",
+  description:
+    "Leverage AI tools to rapidly build, iterate, and ship production-ready applications.",
+},
+{
+  icon: Network,
+  title: "Product Architecture Thinking",
+  description:
+    "Translate business goals and user needs into practical, scalable product solutions.",
+},
+
+
 ];
 
 export function Expertise() {
   return (
-    <section className="py-20 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-20">
+      <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
             <span className="text-blue">My</span> Expertise
@@ -65,32 +82,35 @@ export function Expertise() {
             experiences.
           </p>
         </ScrollReveal>
-
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {expertiseItems.map((item, index) => (
-            <StaggerItem key={item.title}>
-              <motion.div
-                className="group p-6 rounded-xl bg-card-bg border border-card-border hover:border-blue/30 transition-all duration-300 hover:shadow-lg hover:shadow-shadow-hover"
-                whileHover={{ y: -5, scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-              >
-                <motion.div
-                  className="w-12 h-12 rounded-lg bg-blue/10 flex items-center justify-center mb-4 group-hover:bg-blue/20 transition-colors duration-300"
-                  whileHover={{ rotate: 5 }}
-                >
-                  <item.icon className="w-6 h-6 text-blue" />
-                </motion.div>
-
-                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-blue transition-colors duration-300">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-text">{item.description}</p>
-              </motion.div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
       </div>
+
+      {/* Stripe-style grid - outside padded container to align with global stripe-lines */}
+      <StripeGrid showGuides={false}>
+        {expertiseItems.map((item, index) => (
+          <StripeGridItem key={item.title}>
+            <motion.div
+              className="group py-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <motion.div
+                className="w-12 h-12 rounded-lg bg-blue/10 flex items-center justify-center mb-4 group-hover:bg-blue/20 transition-colors duration-300"
+                whileHover={{ rotate: 5 }}
+              >
+                <item.icon className="w-6 h-6 text-blue" />
+              </motion.div>
+
+              <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-blue transition-colors duration-300">
+                {item.title}
+              </h3>
+
+              <p className="text-sm text-text leading-relaxed">{item.description}</p>
+            </motion.div>
+          </StripeGridItem>
+        ))}
+      </StripeGrid>
     </section>
   );
 }

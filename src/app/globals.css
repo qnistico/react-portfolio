@@ -1,6 +1,49 @@
 @import "tailwindcss";
 
+/* =============================================================================
+   COLOR SCHEME: Modern Violet/Cyan (2024)
+   To revert to original colors, comment out this section and uncomment
+   the "ORIGINAL COLORS" section below
+   ============================================================================= */
+
 /* Light theme (default) */
+:root {
+  --background: #fafafa;
+  --foreground: #0f0f0f;
+  --text: #525252;
+  --blue: #7c3aed;
+  --blue-hover: #6d28d9;
+  --card-bg: #ffffff;
+  --card-border: rgba(124, 58, 237, 0.08);
+  --shadow: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(124, 58, 237, 0.2);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --nav-bg: rgba(250, 250, 250, 0.9);
+  --gradient-start: rgba(124, 58, 237, 0.05);
+  --gradient-end: rgba(6, 182, 212, 0.02);
+}
+
+/* Dark theme */
+.dark {
+  --background: #0a0a0f;
+  --foreground: #f5f5f5;
+  --text: #a1a1aa;
+  --blue: #a78bfa;
+  --blue-hover: #c4b5fd;
+  --card-bg: #121218; /* Solid color - approx rgba(255,255,255,0.03) on #0a0a0f */
+  --card-border: rgba(167, 139, 250, 0.15);
+  --shadow: rgba(167, 139, 250, 0.1);
+  --shadow-hover: rgba(167, 139, 250, 0.25);
+  --card-shadow: none; /* Dark mode relies on border/glow, not shadow */
+  --nav-bg: rgba(10, 10, 15, 0.9);
+  --gradient-start: rgba(167, 139, 250, 0.1);
+  --gradient-end: rgba(34, 211, 238, 0.05);
+}
+
+/* =============================================================================
+   ORIGINAL COLORS (uncomment to revert)
+   =============================================================================
+
 :root {
   --background: #f5f5f5;
   --foreground: #111111;
@@ -16,7 +59,6 @@
   --gradient-end: rgba(31, 111, 216, 0.02);
 }
 
-/* Dark theme */
 .dark {
   --background: #0d1117;
   --foreground: #e5e5e5;
@@ -32,6 +74,8 @@
   --gradient-end: rgba(0, 147, 238, 0.02);
 }
 
+   ============================================================================= */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -45,6 +89,7 @@
   --color-nav-bg: var(--nav-bg);
   --color-gradient-start: var(--gradient-start);
   --color-gradient-end: var(--gradient-end);
+  --shadow-card: var(--card-shadow);
   --font-sans: "Roboto", system-ui, sans-serif;
 }
 
@@ -58,6 +103,140 @@ body {
   color: var(--foreground);
   font-family: "Roboto", system-ui, sans-serif;
   overflow-x: hidden;
+}
+
+/* Stripe-style vertical lines */
+.stripe-lines {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.stripe-lines::before {
+  content: "";
+  position: relative;
+  width: 100%;
+  max-width: 1312px; /* 1280px + 32px (16px beyond content on each side) */
+  background-image:
+    linear-gradient(90deg,
+      var(--line-color) 0,
+      var(--line-color) 1px,
+      transparent 1px,
+      transparent calc(25% - 0.5px),
+      var(--line-color) calc(25% - 0.5px),
+      var(--line-color) calc(25% + 0.5px),
+      transparent calc(25% + 0.5px),
+      transparent calc(50% - 0.5px),
+      var(--line-color) calc(50% - 0.5px),
+      var(--line-color) calc(50% + 0.5px),
+      transparent calc(50% + 0.5px),
+      transparent calc(75% - 0.5px),
+      var(--line-color) calc(75% - 0.5px),
+      var(--line-color) calc(75% + 0.5px),
+      transparent calc(75% + 0.5px),
+      transparent calc(100% - 1px),
+      var(--line-color) calc(100% - 1px),
+      var(--line-color) 100%
+    );
+}
+
+:root {
+  --line-color: rgba(0, 0, 0, 0.06);
+}
+
+.dark {
+  --line-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Electric zap effect on stripe lines - dark mode only */
+/*
+.stripe-lines::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1312px;
+  height: 100%;
+  background:
+    linear-gradient(90deg,
+      rgba(167, 139, 250, 0.9) 0,
+      rgba(167, 139, 250, 0.9) 1px,
+      transparent 1px,
+      transparent calc(25% - 0.5px),
+      rgba(167, 139, 250, 0.9) calc(25% - 0.5px),
+      rgba(167, 139, 250, 0.9) calc(25% + 0.5px),
+      transparent calc(25% + 0.5px),
+      transparent calc(50% - 0.5px),
+      rgba(167, 139, 250, 0.9) calc(50% - 0.5px),
+      rgba(167, 139, 250, 0.9) calc(50% + 0.5px),
+      transparent calc(50% + 0.5px),
+      transparent calc(75% - 0.5px),
+      rgba(167, 139, 250, 0.9) calc(75% - 0.5px),
+      rgba(167, 139, 250, 0.9) calc(75% + 0.5px),
+      transparent calc(75% + 0.5px),
+      transparent calc(100% - 1px),
+      rgba(167, 139, 250, 0.9) calc(100% - 1px),
+      rgba(167, 139, 250, 0.9) 100%
+    );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dark .stripe-lines::after {
+  animation: electric-zap 10s linear infinite;
+}
+
+@keyframes electric-zap {
+  0%, 94% {
+    opacity: 0;
+  }
+  95% {
+    opacity: 1;
+  }
+  95.5% {
+    opacity: 0.3;
+  }
+  96% {
+    opacity: 0.9;
+  }
+  96.5% {
+    opacity: 0.2;
+  }
+  97% {
+    opacity: 1;
+  }
+  97.5% {
+    opacity: 0.5;
+  }
+  98% {
+    opacity: 0.8;
+  }
+  98.5%, 100% {
+    opacity: 0;
+  }
+}
+  */
+
+/* Glassmorphism utility */
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.15);
+}
+
+.dark .glow-blue {
+  box-shadow: 0 0 60px rgba(167, 139, 250, 0.2);
 }
 
 /* Custom scrollbar */
@@ -93,3 +272,125 @@ html {
 .overflow-hidden {
   overflow: hidden;
 }
+
+/* Dark mode ambient gradient blobs - stationary, not fixed */
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.dark .ambient-blob {
+  opacity: 1;
+}
+
+/* =============================================================================
+   STRIPE-STYLE GRID SYSTEM
+   Inspired by Stripe's layout where guide lines and content share the same grid.
+   This ensures perfect alignment between vertical lines and content columns.
+
+   To revert: Remove this section and restore the old stripe-lines implementation
+   ============================================================================= */
+
+.stripe-grid {
+  --stripe-max-width: 1312px;
+  --stripe-column-padding: 20px; /* Padding inside each column */
+  --stripe-columns: 4;
+
+  position: relative;
+  width: 100%;
+  max-width: var(--stripe-max-width);
+  margin: 0 auto;
+}
+
+/* Guide lines - 5 vertical lines at 0%, 25%, 50%, 75%, 100% */
+.stripe-grid__guides {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stripe-grid__guide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--line-color);
+}
+
+.stripe-grid__guide--1 { left: 0; }
+.stripe-grid__guide--2 { left: 25%; }
+.stripe-grid__guide--3 { left: 50%; }
+.stripe-grid__guide--4 { left: 75%; }
+.stripe-grid__guide--5 { left: 100%; transform: translateX(-1px); }
+
+/* Content container - 4 equal columns matching guide line positions */
+.stripe-grid__content {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--stripe-columns), 1fr);
+  z-index: 1;
+}
+
+/* Grid items - consistent padding from column edges (the guide lines) */
+.stripe-grid__item {
+  padding: 0 var(--stripe-column-padding);
+}
+
+/* Default: 4 columns on large screens */
+.stripe-grid--4-col {
+  --stripe-columns: 4;
+}
+
+/* Responsive: 2 columns on tablet */
+@media (max-width: 1024px) {
+  .stripe-grid--4-col {
+    --stripe-columns: 2;
+  }
+
+  .stripe-grid--4-col .stripe-grid__guide--2 { left: 50%; }
+  .stripe-grid--4-col .stripe-grid__guide--3,
+  .stripe-grid--4-col .stripe-grid__guide--4 {
+    display: none;
+  }
+}
+
+/* Responsive: 1 column on mobile */
+@media (max-width: 640px) {
+  .stripe-grid--4-col {
+    --stripe-columns: 1;
+  }
+
+  .stripe-grid--4-col .stripe-grid__guide--2,
+  .stripe-grid--4-col .stripe-grid__guide--3,
+  .stripe-grid--4-col .stripe-grid__guide--4 {
+    display: none;
+  }
+}
+
+/* 2-column variant */
+.stripe-grid--2-col {
+  --stripe-columns: 2;
+}
+
+.stripe-grid--2-col .stripe-grid__guide--2 { left: 50%; }
+.stripe-grid--2-col .stripe-grid__guide--3,
+.stripe-grid--2-col .stripe-grid__guide--4 {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .stripe-grid--2-col {
+    --stripe-columns: 1;
+  }
+
+  .stripe-grid--2-col .stripe-grid__guide--2 {
+    display: none;
+  }
+}
+

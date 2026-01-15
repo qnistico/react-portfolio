@@ -8,6 +8,7 @@ export interface Project {
   type: "Agency" | "Personal Project" | "Freelance";
   techStack: string[];
   featured?: boolean;
+  github?: string;
 }
 
 export const agencyProjects: Project[] = [

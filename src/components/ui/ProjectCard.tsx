@@ -1,9 +1,8 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
-import { MouseEvent, useRef } from "react";
 
 interface ProjectCardProps {
   title: string;
@@ -26,42 +25,8 @@ export function ProjectCard({
   techStack = [],
   index = 0,
 }: ProjectCardProps) {
-  const ref = useRef<HTMLAnchorElement>(null);
-
-  // 3D tilt effect
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
-
-  const springConfig = { damping: 20, stiffness: 200 };
-  const springRotateX = useSpring(rotateX, springConfig);
-  const springRotateY = useSpring(rotateY, springConfig);
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const mouseX = e.clientX - centerX;
-    const mouseY = e.clientY - centerY;
-
-    // Convert to rotation (max 10 degrees)
-    const rotX = (mouseY / (rect.height / 2)) * -10;
-    const rotY = (mouseX / (rect.width / 2)) * 10;
-
-    rotateX.set(rotX);
-    rotateY.set(rotY);
-  };
-
-  const handleMouseLeave = () => {
-    rotateX.set(0);
-    rotateY.set(0);
-  };
-
   return (
     <motion.a
-      ref={ref}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
@@ -74,15 +39,7 @@ export function ProjectCard({
         delay: index * 0.1,
         ease: [0.21, 0.47, 0.32, 0.98],
       }}
-      style={{
-        rotateX: springRotateX,
-        rotateY: springRotateY,
-        transformPerspective: 1000,
-        transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      whileHover={{ y: -6 }}
+      whileHover={{ y: -8 }}
     >
       <div className="relative overflow-hidden rounded-xl bg-card-bg border border-card-border shadow-lg transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-shadow-hover group-hover:border-blue/30">
         {/* Image container with zoom effect */}

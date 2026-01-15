@@ -56,8 +56,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${roboto.variable} font-sans antialiased`}>
+        {/* Stripe-style vertical lines */}
+        <div className="stripe-lines" aria-hidden="true" />
         <Header />
-        <main>{children}</main>
+        <main className="relative z-10">{children}</main>
         <Footer />
       </body>
     </html>

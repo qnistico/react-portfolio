@@ -1,10 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { MagneticButton } from "@/components/ui/MagneticButton";
+
+// Web3Forms access key
+const WEB3FORMS_KEY = "7c371e5a-e064-49f8-8c1f-4bf2af22a2ba";
+// Web3Forms public hCaptcha sitekey (invisible mode)
+const HCAPTCHA_SITEKEY = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
+
+declare global {
+  interface Window {
+    hcaptcha?: {
+      reset: (widgetId?: string) => void;
+      execute: (widgetId?: string) => void;
+      render: (container: HTMLElement, options: Record<string, unknown>) => string;
+    };
+  }
+}
 
 export function Contact() {
   const [formState, setFormState] = useState({
@@ -13,11 +27,51 @@ export function Contact() {
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const hcaptchaWidgetId = useRef<string | null>(null);
+  const hcaptchaContainerRef = useRef<HTMLDivElement>(null);
+  // Use ref to always have latest form state in captcha callback
+  const formStateRef = useRef(formState);
+  formStateRef.current = formState;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("loading");
+  // Load hCaptcha script and render invisible widget
+  useEffect(() => {
+    const loadHcaptcha = () => {
+      if (!hcaptchaContainerRef.current || hcaptchaWidgetId.current !== null) return;
 
+      if (window.hcaptcha) {
+        hcaptchaWidgetId.current = window.hcaptcha.render(hcaptchaContainerRef.current, {
+          sitekey: HCAPTCHA_SITEKEY,
+          size: "invisible",
+          callback: (token: string) => {
+            submitForm(token);
+          },
+          "error-callback": () => {
+            setStatus("error");
+          },
+        });
+      }
+    };
+
+    if (document.getElementById("hcaptcha-script")) {
+      // Script already loaded, just render
+      if (window.hcaptcha) {
+        loadHcaptcha();
+      }
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = "hcaptcha-script";
+    script.src = "https://js.hcaptcha.com/1/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = loadHcaptcha;
+    document.head.appendChild(script);
+  }, []);
+
+  const submitForm = async (captchaToken: string) => {
+    // Use ref to get latest form state (avoids stale closure)
+    const currentForm = formStateRef.current;
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -26,18 +80,42 @@ export function Contact() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "7c371e5a-e064-49f8-8c1f-4bf2af22a2ba",
-          ...formState,
+          access_key: WEB3FORMS_KEY,
+          subject: `Portfolio Contact: ${currentForm.name}`,
+          from_name: "Portfolio Contact Form",
+          "h-captcha-response": captchaToken,
+          ...currentForm,
         }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         setStatus("success");
         setFormState({ name: "", email: "", message: "" });
+        if (hcaptchaWidgetId.current !== null) {
+          window.hcaptcha?.reset(hcaptchaWidgetId.current);
+        }
+        setTimeout(() => setStatus("idle"), 5000);
       } else {
+        console.error("Web3Forms error:", data);
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
+      console.error("Submit error:", err);
+      setStatus("error");
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    // Trigger invisible hCaptcha - it will call submitForm on success
+    if (window.hcaptcha && hcaptchaWidgetId.current !== null) {
+      window.hcaptcha.execute(hcaptchaWidgetId.current);
+    } else {
+      // Fallback if hCaptcha not loaded
       setStatus("error");
     }
   };
@@ -59,7 +137,7 @@ export function Contact() {
           <ScrollReveal direction="left">
             <motion.form
               onSubmit={handleSubmit}
-              className="p-8 rounded-2xl bg-card-bg border border-card-border shadow-lg"
+              className="p-8 rounded-2xl bg-card-bg border border-card-border shadow-card"
             >
               <div className="mb-6">
                 <h3 className="text-xl font-semibold text-foreground mb-1">
@@ -122,6 +200,9 @@ export function Contact() {
                   />
                 </div>
 
+                {/* Invisible hCaptcha container */}
+                <div ref={hcaptchaContainerRef} />
+
                 <motion.button
                   type="submit"
                   disabled={status === "loading"}
@@ -165,7 +246,7 @@ export function Contact() {
                     className="flex items-center gap-2 text-red-500"
                   >
                     <AlertCircle className="w-5 h-5" />
-                    <span>Something went wrong. Please try again.</span>
+                    <span>Please complete the captcha and try again.</span>
                   </motion.div>
                 )}
               </div>

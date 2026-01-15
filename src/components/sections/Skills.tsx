@@ -2,9 +2,16 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Palette, Smartphone, type LucideIcon } from "lucide-react";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
 
-const skills = [
+type Skill = {
+  name: string;
+  icon?: string;
+  LucideIcon?: LucideIcon;
+};
+
+const skills: Skill[] = [
   { name: "HTML", icon: "/images/skills/html5.svg" },
   { name: "CSS", icon: "/images/skills/css.svg" },
   { name: "JavaScript", icon: "/images/skills/js.png" },
@@ -17,6 +24,8 @@ const skills = [
   { name: "Figma", icon: "/images/skills/figma.png" },
   { name: "Git", icon: "/images/skills/git.png" },
   { name: "GitHub", icon: "/images/skills/github.svg" },
+  { name: "UI/UX", icon: "/images/skills/uiux.png" },
+  { name: "RWD", icon: "/images/skills/rwd.png" },
 ];
 
 export function Skills() {
@@ -34,23 +43,27 @@ export function Skills() {
         </ScrollReveal>
 
         <StaggerContainer
-          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4"
+          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4"
           staggerDelay={0.05}
         >
           {skills.map((skill) => (
             <StaggerItem key={skill.name}>
               <motion.div
-                className="group flex flex-col items-center justify-center p-4 rounded-xl bg-card-bg border border-card-border hover:border-blue/30 transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
+                className="group flex flex-col items-center justify-center p-4 rounded-xl bg-card-bg border border-card-border shadow-card hover:border-blue/30 hover:shadow-lg hover:shadow-shadow-hover transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <div className="relative w-10 h-10 mb-2 group-hover:scale-110 transition-transform duration-300">
-                  <Image
-                    src={skill.icon}
-                    alt={skill.name}
-                    fill
-                    className="object-contain"
-                  />
+                <div className="relative w-10 h-10 mb-2 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                  {skill.icon ? (
+                    <Image
+                      src={skill.icon}
+                      alt={skill.name}
+                      fill
+                      className="object-contain"
+                    />
+                  ) : skill.LucideIcon ? (
+                    <skill.LucideIcon className="w-8 h-8 text-blue" />
+                  ) : null}
                 </div>
                 <span className="text-xs font-medium text-text group-hover:text-foreground transition-colors duration-300">
                   {skill.name}
