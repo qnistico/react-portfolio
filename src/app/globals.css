@@ -288,12 +288,26 @@ html {
   opacity: 1;
 }
 
+.expertise-container .stripe-grid .stripe-grid__item .line-decoration {
+  position: relative;
+}
+
+.expertise-container .stripe-grid .stripe-grid__item .line-decoration:before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 5px;
+  background-color: var(--blue);
+  height: 20px;
+  width: 0.5px;
+}
+
 /* =============================================================================
    STRIPE-STYLE GRID SYSTEM
    Inspired by Stripe's layout where guide lines and content share the same grid.
    This ensures perfect alignment between vertical lines and content columns.
 
-   To revert: Remove this section and restore the old stripe-lines implementation
+ 
    ============================================================================= */
 
 .stripe-grid {

@@ -69,7 +69,7 @@ const expertiseItems = [
 
 export function Expertise() {
   return (
-    <section className="py-20">
+    <section className="py-20 expertise-container">
       <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
@@ -102,7 +102,7 @@ export function Expertise() {
                 <item.icon className="w-6 h-6 text-blue" />
               </motion.div>
 
-              <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-blue transition-colors duration-300">
+              <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-blue transition-colors duration-300 line-decoration">
                 {item.title}
               </h3>
 
