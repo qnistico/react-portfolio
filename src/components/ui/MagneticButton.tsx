@@ -13,6 +13,7 @@ interface MagneticButtonProps {
   showArrow?: boolean;
   className?: string;
   external?: boolean;
+  target?: string;
 }
 
 export function MagneticButton({
@@ -24,6 +25,7 @@ export function MagneticButton({
   showArrow = true,
   className = "",
   external = false,
+  target,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
 
@@ -91,13 +93,15 @@ export function MagneticButton({
     </>
   );
 
+  const isExternal = external || target === "_blank";
+
   if (href) {
     return (
       <motion.a
         ref={ref as React.RefObject<HTMLAnchorElement>}
         href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
+        target={target || (external ? "_blank" : undefined)}
+        rel={isExternal ? "noopener noreferrer" : undefined}
         className={combinedClassName}
         style={{ x: springX, y: springY }}
         onMouseMove={handleMouseMove}

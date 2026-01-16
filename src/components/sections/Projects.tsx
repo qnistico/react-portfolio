@@ -199,9 +199,12 @@ function ProjectShowcase({
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover grayscale transition-transform duration-500 group-hover:scale-105"
                   draggable={false}
                 />
+                {/* Blue gradient overlay for branded look */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue/50 via-blue/30 to-blue/10" />
+                {/* Hover overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <ExternalLink className="w-4 h-4" />

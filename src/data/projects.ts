@@ -109,9 +109,9 @@ export const personalProjects: Project[] = [
     title: "Netflix Clone",
     description:
       "A full-stack Netflix clone with user authentication, real-time updates, Stripe payments, and a responsive UI. Built with modern React patterns and best practices.",
-    image: "/images/projects/netflix-clone.png",
-    href: "https://netflix-clone.vercel.app/", // Update with actual URL
-    year: "2025",
+    image: "/images/projects/netflix.png",
+    href: "https://netflix-clone-omega-lac.vercel.app/", // Update with actual URL
+    year: "2026",
     type: "Personal Project",
     techStack: ["React", "TypeScript", "Next.js", "Tailwind", "Stripe", "Prisma"],
     featured: true,
@@ -121,9 +121,9 @@ export const personalProjects: Project[] = [
     title: "Slack Clone",
     description:
       "A real-time messaging application with workspaces, channels, direct messages, and rich text editing. Features real-time updates and modern UI/UX.",
-    image: "/images/projects/slack-clone.png",
-    href: "https://slack-clone.vercel.app/", // Update with actual URL
-    year: "2025",
+    image: "/images/projects/slack.png",
+    href: "https://slack-clone-622bd.web.app/login", // Update with actual URL
+    year: "2026",
     type: "Personal Project",
     techStack: ["React", "TypeScript", "Next.js", "Convex", "Tailwind"],
     featured: true,

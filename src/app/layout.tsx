@@ -41,13 +41,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Prevent flash of wrong theme */}
+        {/* Prevent flash of wrong theme - default to dark */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 const stored = localStorage.getItem('theme');
-                if (stored === 'theme-dark' || (!stored)) {
+                if (stored === 'dark' || !stored) {
                   document.documentElement.classList.add('dark');
                 }
               })();

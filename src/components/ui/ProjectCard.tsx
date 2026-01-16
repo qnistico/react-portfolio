@@ -53,12 +53,14 @@ export function ProjectCard({
               src={image}
               alt={title}
               fill
-              className="object-cover"
+              className="object-cover grayscale"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </motion.div>
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {/* Blue gradient overlay for branded look */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue/50 via-blue/30 to-blue/10" />
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         {/* Content */}
