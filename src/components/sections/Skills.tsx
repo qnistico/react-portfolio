@@ -1,25 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { Palette, Smartphone, type LucideIcon } from "lucide-react";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/ScrollReveal";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { SkillConstellation } from "@/components/ui/SkillConstellation";
 
-type Skill = {
-  name: string;
-  icon?: string;
-  LucideIcon?: LucideIcon;
-};
-
-const skills: Skill[] = [
+const skills = [
   { name: "HTML", icon: "/images/skills/html5.svg" },
   { name: "CSS", icon: "/images/skills/css.svg" },
-  { name: "JavaScript", icon: "/images/skills/js.png" },
   { name: "React", icon: "/images/skills/react.svg" },
   { name: "TypeScript", icon: "/images/skills/typescript.svg" },
   { name: "Next.js", icon: "/images/skills/nextjs.svg" },
   { name: "Tailwind", icon: "/images/skills/tailwind.svg" },
-  { name: "SCSS", icon: "/images/skills/sass.svg" },
   { name: "WordPress", icon: "/images/skills/wordpress.png" },
   { name: "Figma", icon: "/images/skills/figma.png" },
   { name: "Git", icon: "/images/skills/git.png" },
@@ -42,36 +32,9 @@ export function Skills() {
           </p>
         </ScrollReveal>
 
-        <StaggerContainer
-          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4"
-          staggerDelay={0.05}
-        >
-          {skills.map((skill) => (
-            <StaggerItem key={skill.name}>
-              <motion.div
-                className="group flex flex-col items-center justify-center p-4 rounded-xl bg-card-bg border border-card-border shadow-card hover:border-blue/30 hover:shadow-lg hover:shadow-shadow-hover transition-all duration-300"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="relative w-10 h-10 mb-2 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-                  {skill.icon ? (
-                    <Image
-                      src={skill.icon}
-                      alt={skill.name}
-                      fill
-                      className="object-contain"
-                    />
-                  ) : skill.LucideIcon ? (
-                    <skill.LucideIcon className="w-8 h-8 text-blue" />
-                  ) : null}
-                </div>
-                <span className="text-xs font-medium text-text group-hover:text-foreground transition-colors duration-300">
-                  {skill.name}
-                </span>
-              </motion.div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        <ScrollReveal>
+          <SkillConstellation skills={skills} centerLabel="Tech Stack" />
+        </ScrollReveal>
       </div>
     </section>
   );

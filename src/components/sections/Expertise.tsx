@@ -52,19 +52,17 @@ const expertiseItems = [
       "Build consistent, reusable UI components and interactive prototypes in Figma or similar tools.",
   },
   {
-  icon: Bot,
-  title: "AI-Augmented Development",
-  description:
-    "Leverage AI tools to rapidly build, iterate, and ship production-ready applications.",
-},
-{
-  icon: Network,
-  title: "Product Architecture Thinking",
-  description:
-    "Translate business goals and user needs into practical, scalable product solutions.",
-},
-
-
+    icon: Bot,
+    title: "AI-Augmented Development",
+    description:
+      "Leverage AI tools to rapidly build, iterate, and ship production-ready applications.",
+  },
+  {
+    icon: Network,
+    title: "Product Architecture Thinking",
+    description:
+      "Translate business goals and user needs into practical, scalable product solutions.",
+  },
 ];
 
 export function Expertise() {
