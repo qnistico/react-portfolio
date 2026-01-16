@@ -253,7 +253,7 @@ function ProjectShowcase({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => isDragging && e.preventDefault()}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue text-white rounded-lg text-sm font-medium hover:bg-blue/90 transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-button-bg text-white rounded-lg text-sm font-medium hover:bg-button-hover transition-colors"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     View Live

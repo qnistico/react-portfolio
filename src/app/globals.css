@@ -13,6 +13,8 @@
   --text: #525252;
   --blue: #7c3aed;
   --blue-hover: #6d28d9;
+  --button-bg: #6d28d9; /* Darker purple for buttons - better contrast with white text */
+  --button-hover: #5b21b6;
   --card-bg: #ffffff;
   --card-border: rgba(124, 58, 237, 0.08);
   --shadow: rgba(0, 0, 0, 0.08);
@@ -30,6 +32,8 @@
   --text: #a1a1aa;
   --blue: #a78bfa;
   --blue-hover: #c4b5fd;
+  --button-bg: #7c3aed; /* Slightly darker purple for dark mode buttons */
+  --button-hover: #6d28d9;
   --card-bg: #121218; /* Solid color - approx rgba(255,255,255,0.03) on #0a0a0f */
   --card-border: rgba(167, 139, 250, 0.15);
   --shadow: rgba(167, 139, 250, 0.1);
@@ -82,6 +86,8 @@
   --color-text: var(--text);
   --color-blue: var(--blue);
   --color-blue-hover: var(--blue-hover);
+  --color-button-bg: var(--button-bg);
+  --color-button-hover: var(--button-hover);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
   --color-shadow: var(--shadow);
@@ -295,11 +301,11 @@ html {
 .expertise-container .stripe-grid .stripe-grid__item .line-decoration:before {
   content: '';
   position: absolute;
-  left: -20px;
+  left: -21px;
   top: 5px;
   background-color: var(--blue);
-  height: 20px;
-  width: 0.5px;
+  height: 17px;
+  width: 2px;
 }
 
 /* =============================================================================
@@ -408,3 +414,6 @@ html {
   }
 }
 
+a, button {
+  cursor: pointer;
+}
