@@ -69,7 +69,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <Link href="/" className="flex items-center gap-0.5" aria-label="Home">
+            <Link href="/" className="logo-container flex items-center gap-0.5" aria-label="Home">
               {/* Stylized Q icon with </> inside */}
               <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-blue">
                 {/* Q shape - thinner stroke for more inner space */}
