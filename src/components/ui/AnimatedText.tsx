@@ -105,9 +105,9 @@ export function Typewriter({
 
 function TypewriterInner({
   words,
-  typingSpeed,
-  deletingSpeed,
-  pauseDuration,
+  typingSpeed = 100,
+  deletingSpeed = 50,
+  pauseDuration = 2000,
 }: Omit<TypewriterProps, "className">) {
   const [currentWordIndex, setCurrentWordIndex] = React.useState(0);
   const [currentText, setCurrentText] = React.useState("");

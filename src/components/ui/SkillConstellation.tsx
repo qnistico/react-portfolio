@@ -21,9 +21,10 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
   const getNodePosition = (index: number, total: number, radius: number) => {
     // Start from top (-90 degrees) and go clockwise
     const angle = ((index / total) * 360 - 90) * (Math.PI / 180);
+    // Round to 2 decimal places to avoid hydration mismatches
     return {
-      x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius,
+      x: Math.round(Math.cos(angle) * radius * 100) / 100,
+      y: Math.round(Math.sin(angle) * radius * 100) / 100,
     };
   };
 
@@ -147,8 +148,9 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
 
         // Position based on percentage, accounting for the node size
         // The viewBox is 500x500, so we convert pos to percentage
-        const leftPercent = ((250 + pos.x) / 500) * 100;
-        const topPercent = ((250 + pos.y) / 500) * 100;
+        // Round to avoid hydration mismatches from floating point precision
+        const leftPercent = Math.round(((250 + pos.x) / 500) * 10000) / 100;
+        const topPercent = Math.round(((250 + pos.y) / 500) * 10000) / 100;
 
         return (
           <motion.div

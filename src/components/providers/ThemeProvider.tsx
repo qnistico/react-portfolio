@@ -17,12 +17,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
+    // Read from localStorage, or check if dark class is already set by layout script
     const stored = localStorage.getItem("theme") as Theme | null;
     if (stored) {
       setTheme(stored);
-    } else {
-      // Default to dark theme like your current site
+    } else if (document.documentElement.classList.contains("dark")) {
       setTheme("dark");
+    } else {
+      // Default to dark theme
+      setTheme("dark");
+      document.documentElement.classList.add("dark");
     }
   }, []);
 

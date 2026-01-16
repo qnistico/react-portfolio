@@ -33,7 +33,7 @@ export function ThemeToggle() {
     } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("theme", newTheme === "dark" ? "theme-dark" : "theme-light");
+    localStorage.setItem("theme", newTheme);
     setIsDark(!isDark);
   };
 
