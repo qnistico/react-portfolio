@@ -82,18 +82,25 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
         })}
 
         {/* Animated pulse on active line */}
-        {activeIndex !== null && (() => {
+        {activeIndex !== null && skills[activeIndex] && (() => {
           const pos = getNodePosition(activeIndex, skills.length, radius);
+          const startX = 250;
+          const startY = 250;
+          const endX = 250 + pos.x;
+          const endY = 250 + pos.y;
           return (
             <motion.circle
+              key={`pulse-${activeIndex}`}
+              cx={startX}
+              cy={startY}
               r={4}
               fill="currentColor"
               className="text-blue"
-              initial={{ opacity: 0 }}
+              initial={{ opacity: 0, cx: startX, cy: startY }}
               animate={{
                 opacity: [0, 1, 0],
-                cx: [250, 250 + pos.x],
-                cy: [250, 250 + pos.y],
+                cx: [startX, endX],
+                cy: [startY, endY],
               }}
               transition={{
                 duration: 0.8,
