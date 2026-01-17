@@ -173,28 +173,7 @@ export const personalProjects: Project[] = [
     type: "Personal Project",
     techStack: ["React", "Firebase", "CSS"],
   },
-  {
-    id: "recipe-app",
-    title: "Recipe Search App",
-    description:
-      "A simple recipe search application using JavaScript and the Edamam API service.",
-    image: "/images/projects/recipe.webp",
-    href: "https://qnistico.github.io/Recipe-Search-App/",
-    year: "2022",
-    type: "Personal Project",
-    techStack: ["JavaScript", "API", "CSS"],
-  },
-  {
-    id: "cgn-dui",
-    title: "CGN DUI Attorney",
-    description:
-      "A personalized legal website for a Philadelphia area DUI Attorney named Charles G. Nistico.",
-    image: "/images/projects/cgn.webp",
-    href: "https://duiattorney.net/",
-    year: "2021",
-    type: "Freelance",
-    techStack: ["HTML", "CSS", "JavaScript"],
-  },
+  
 ];
 
 export const allProjects = [...personalProjects, ...agencyProjects];

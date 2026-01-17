@@ -432,7 +432,7 @@ export function Contact() {
           {/* Contact info - Takes 2 columns */}
           <div className="lg:col-span-2 space-y-6">
             <ScrollReveal>
-              <div className="p-6 rounded-2xl bg-card-bg/80 backdrop-blur-sm border border-card-border">
+              <div className="p-6 rounded-2xl bg-card-bg/80 backdrop-blur-sm border border-card-border shadow-card">
                 <h3 className="text-lg font-bold text-foreground mb-4">
                   Direct Contact
                 </h3>
@@ -441,6 +441,7 @@ export function Contact() {
                     href="mailto:quintonnistico@gmail.com"
                     className="flex items-center gap-4 p-3 rounded-xl hover:bg-blue/5 transition-colors duration-300 group"
                     whileHover={{ x: 4 }}
+                    transition={{ type: "tween", duration: 0.2 }}
                   >
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue/10 group-hover:bg-blue/20 transition-colors duration-300">
                       <Mail className="h-5 w-5 text-blue" />
@@ -457,6 +458,7 @@ export function Contact() {
                     href="tel:6103898465"
                     className="flex items-center gap-4 p-3 rounded-xl hover:bg-blue/5 transition-colors duration-300 group"
                     whileHover={{ x: 4 }}
+                    transition={{ type: "tween", duration: 0.2 }}
                   >
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue/10 group-hover:bg-blue/20 transition-colors duration-300">
                       <Phone className="h-5 w-5 text-blue" />
@@ -473,13 +475,13 @@ export function Contact() {
             </ScrollReveal>
 
             <ScrollReveal>
-              <div className="p-6 rounded-2xl bg-card-bg/80 backdrop-blur-sm border border-card-border">
+              <div className="p-6 rounded-2xl bg-card-bg/80 backdrop-blur-sm border border-card-border shadow-card">
                 <h3 className="text-lg font-bold text-foreground mb-4">
                   Connect Online
                 </h3>
                 <div className="grid gap-3">
                   <SocialLink
-                    href="https://github.com/quintonnistico"
+                    href="https://github.com/qnistico"
                     icon={SiGithub}
                     label="GitHub"
                     delay={0.1}

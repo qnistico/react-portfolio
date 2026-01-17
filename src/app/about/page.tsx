@@ -62,7 +62,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="px-6 mb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
             {/* Image */}
             <ScrollReveal>
               <motion.div
@@ -71,7 +71,7 @@ export default function AboutPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="absolute inset-0 bg-blue/20 rounded-2xl blur-3xl scale-90" />
+                <div className="absolute inset-0 bg-blue/20 rounded-full blur-3xl scale-110" />
                 <div className="about-image relative w-72 h-72 md:w-96 md:h-96 rounded-2xl overflow-hidden">
                   <Image
                     src="/images/aboutportraitDark.webp"

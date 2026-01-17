@@ -227,7 +227,7 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
               className={`relative w-full h-full rounded-xl flex items-center justify-center cursor-pointer transition-all duration-200 ${
                 isActive
                   ? "bg-skill-node-bg-active border-2 border-blue"
-                  : "bg-skill-node-bg border border-card-border hover:border-blue/50"
+                  : "bg-skill-node-bg border border-gray-300 dark:border-card-border hover:border-blue/50"
               }`}
               whileHover={{ scale: 1.1 }}
             >

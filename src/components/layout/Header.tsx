@@ -88,10 +88,10 @@ export function Header() {
               <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-icon w-9 h-9 flex-shrink-0 text-blue">
                 {/* Q shape - thinner stroke for more inner space */}
                 <path d="M20 3C10.611 3 3 10.611 3 20C3 29.389 10.611 37 20 37C24 37 27.6 35.7 30.5 33.4L33.5 37L38 33L35 29.5C36.9 26.8 38 23.5 38 20C38 10.611 30.389 3 20 3ZM20 32C13.373 32 8 26.627 8 20C8 13.373 13.373 8 20 8C26.627 8 32 13.373 32 20C32 26.627 26.627 32 20 32Z" fill="currentColor"/>
-                {/* </> symbol - smaller with more breathing room */}
-                <path d="M17 16L14 20L17 24" stroke="white" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M23 16L26 20L23 24" stroke="white" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M21 15L19 25" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+                {/* </> symbol - white on dark, blue on light */}
+                <path d="M17 16L14 20L17 24" className="stroke-white dark:stroke-white" style={{ stroke: 'var(--code-symbol-stroke, white)' }} strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M23 16L26 20L23 24" className="stroke-white dark:stroke-white" style={{ stroke: 'var(--code-symbol-stroke, white)' }} strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M21 15L19 25" className="stroke-white dark:stroke-white" style={{ stroke: 'var(--code-symbol-stroke, white)' }} strokeWidth="1" strokeLinecap="round"/>
               </svg>
               {/* Two-line logo text */}
               <div className="logo-text flex flex-col leading-tight">

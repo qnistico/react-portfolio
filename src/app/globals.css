@@ -22,6 +22,7 @@
   --gradient-end: rgba(59, 130, 246, 0.02);
   --skill-node-bg: #ffffff;
   --skill-node-bg-active: #e8edfa;
+  --code-symbol-stroke: #2563eb;
 }
 
 .dark {
@@ -42,6 +43,7 @@
   --gradient-end: rgba(59, 130, 246, 0.05);
   --skill-node-bg: #0f172a;
   --skill-node-bg-active: #111d2e;
+  --code-symbol-stroke: white;
 }
 
 
