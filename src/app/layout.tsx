@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { LoadingProvider } from "@/context/LoadingContext";
 // Custom cursor disabled - using default cursor
 // import { CustomCursor } from "@/components/ui/CustomCursor";
 
@@ -168,12 +169,14 @@ export default function RootLayout({
         />
       </head>
       <body className={`${roboto.variable} font-sans antialiased`}>
-        {/* <CustomCursor /> */}
-        {/* Stripe-style vertical lines */}
-        <div className="stripe-lines" aria-hidden="true" />
-        <Header />
-        <main className="relative z-10">{children}</main>
-        <Footer />
+        <LoadingProvider>
+          {/* <CustomCursor /> */}
+          {/* Stripe-style vertical lines */}
+          <div className="stripe-lines" aria-hidden="true" />
+          <Header />
+          <main className="relative z-10">{children}</main>
+          <Footer />
+        </LoadingProvider>
       </body>
     </html>
   );

@@ -2,10 +2,12 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useLoading } from "@/context/LoadingContext";
 
 export function LoadingScreen() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(true);
   const [shouldRender, setShouldRender] = useState(true);
+  const { setIsLoading } = useLoading();
 
   useEffect(() => {
     // Check if this is the first visit in this session
@@ -13,35 +15,47 @@ export function LoadingScreen() {
 
     if (hasVisited) {
       // Skip loading screen for return visits in same session
-      setIsLoading(false);
+      setIsAnimating(false);
       setShouldRender(false);
+      setIsLoading(false);
+      document.body.classList.add("loading-complete");
       return;
     }
+
+    // Disable scrolling while loading
+    document.body.style.overflow = "hidden";
 
     // Mark as visited
     sessionStorage.setItem("hasVisitedHomepage", "true");
 
     // Show loading screen for first visit
     const timer = setTimeout(() => {
-      setIsLoading(false);
+      setIsAnimating(false);
     }, 2000); // 2 second loading animation
 
     // Clean up render after exit animation completes
+    // Both header CSS class and isLoading change happen at the same time
     const renderTimer = setTimeout(() => {
       setShouldRender(false);
+      setIsLoading(false);
+      document.body.classList.add("loading-complete");
+      // Re-enable scrolling after animation completes
+      document.body.style.overflow = "";
     }, 2800); // 2s loading + 0.8s exit animation
 
     return () => {
       clearTimeout(timer);
       clearTimeout(renderTimer);
+      // Ensure scroll is re-enabled on cleanup
+      document.body.style.overflow = "";
     };
-  }, []);
+  }, [setIsLoading]);
 
   if (!shouldRender) return null;
 
   return (
     <AnimatePresence>
-      {isLoading && (
+      {isAnimating && (
         <motion.div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-background"
           initial={{ opacity: 1 }}
@@ -111,7 +125,7 @@ export function LoadingScreen() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1.2 }}
               />
-              {/* Code brackets - delayed */}
+              {/* Code brackets - delayed, uses CSS variable for theme-aware color */}
               <motion.g
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -119,21 +133,21 @@ export function LoadingScreen() {
               >
                 <path
                   d="M17 16L14 20L17 24"
-                  stroke="white"
+                  style={{ stroke: 'var(--code-symbol-stroke, white)' }}
                   strokeWidth="1"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
                 <path
                   d="M23 16L26 20L23 24"
-                  stroke="white"
+                  style={{ stroke: 'var(--code-symbol-stroke, white)' }}
                   strokeWidth="1"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
                 <path
                   d="M21 15L19 25"
-                  stroke="white"
+                  style={{ stroke: 'var(--code-symbol-stroke, white)' }}
                   strokeWidth="1"
                   strokeLinecap="round"
                 />

@@ -4,6 +4,7 @@
 
 
 
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
@@ -13,7 +14,9 @@
   --button-bg: #1d4ed8;
   --button-hover: #1e40af;
   --card-bg: #ffffff;
+  --card-bg-solid: #fbfcfd;
   --card-border: rgba(37, 99, 235, 0.08);
+  --card-border-strong: rgba(37, 99, 235, 0.18);
   --shadow: rgba(0, 0, 0, 0.08);
   --shadow-hover: rgba(37, 99, 235, 0.2);
   --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
@@ -34,7 +37,9 @@
   --button-bg: #2563eb;
   --button-hover: #3b82f6;
   --card-bg: #0f172a;
+  --card-bg-solid: #0c1221;
   --card-border: rgba(96, 165, 250, 0.15);
+  --card-border-strong: rgba(96, 165, 250, 0.25);
   --shadow: rgba(96, 165, 250, 0.1);
   --shadow-hover: rgba(96, 165, 250, 0.25);
   --card-shadow: none;
@@ -104,7 +109,9 @@
   --color-button-bg: var(--button-bg);
   --color-button-hover: var(--button-hover);
   --color-card-bg: var(--card-bg);
+  --color-card-bg-solid: var(--card-bg-solid);
   --color-card-border: var(--card-border);
+  --color-card-border-strong: var(--card-border-strong);
   --color-shadow: var(--shadow);
   --color-shadow-hover: var(--shadow-hover);
   --color-nav-bg: var(--nav-bg);
@@ -461,14 +468,23 @@ a, button {
 .logo-icon {
   width: 68px;
   height: 68px;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  overflow: hidden;
+  max-width: 200px;
+  opacity: 1;
 }
 
 .logo-name {
   font-size: 24px;
+  white-space: nowrap;
 }
 
 .logo-tagline {
   font-size: 18px;
+  white-space: nowrap;
 }
 
 .project-card * {
@@ -480,6 +496,16 @@ a, button {
   height: 48px;
 }
 
+.scrolled .logo-text {
+  max-width: 0;
+  opacity: 0;
+}
+
+.scrolled .logo-container:hover .logo-text {
+  max-width: 200px;
+  opacity: 1;
+}
+
 .scrolled .logo-name {
   font-size: 18px;
 }
@@ -487,3 +513,5 @@ a, button {
 .scrolled .logo-tagline {
   font-size: 14px;
 }
+
+

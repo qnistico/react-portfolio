@@ -5,10 +5,12 @@ import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { Typewriter } from "@/components/ui/AnimatedText";
+import { useLoading } from "@/context/LoadingContext";
 
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null);
   const [isDark, setIsDark] = useState(true);
+  const { isLoading } = useLoading();
 
   useEffect(() => {
     // Check for dark class on document
@@ -87,8 +89,8 @@ export function Hero() {
           <div className="order-2 lg:order-1">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              animate={isLoading ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground leading-tight mb-4">
                 Hi, I'm Quinton
@@ -97,8 +99,8 @@ export function Hero() {
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              animate={isLoading ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="mb-6"
             >
               <p className="text-xl md:text-2xl text-foreground">
@@ -121,8 +123,8 @@ export function Hero() {
             <motion.p
               className="text-lg text-text mb-8 max-w-xl"
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              animate={isLoading ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
             >
               Front-End Web Developer & Designer with 4+ years of professional
               agency experience, specializing in responsive, accessible web
@@ -133,8 +135,8 @@ export function Hero() {
             <motion.div
               className="flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              animate={isLoading ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
             >
               <MagneticButton href="#projects" variant="primary" size="lg">
                 View My Work
@@ -149,8 +151,8 @@ export function Hero() {
           <motion.div
             className="order-1 lg:order-2 flex justify-center"
             initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            animate={isLoading ? { opacity: 0, x: 50 } : { opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
           >
             <motion.div
               className="relative"
@@ -198,7 +200,7 @@ export function Hero() {
       <motion.button
         className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={isLoading ? { opacity: 0 } : { opacity: 1 }}
         transition={{ delay: 1.5 }}
         onClick={() => {
           document.getElementById("expertise")?.scrollIntoView({ behavior: "smooth", block: "center" });

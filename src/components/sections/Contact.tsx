@@ -66,16 +66,6 @@ function AnimatedInput({
       >
         {placeholder}
       </motion.label>
-      {/* Focus line animation */}
-      <motion.div
-        className="absolute bottom-0 left-1/2 h-0.5 bg-blue rounded-full"
-        initial={{ width: 0, x: "-50%" }}
-        animate={{
-          width: isFocused ? "100%" : 0,
-          x: "-50%",
-        }}
-        transition={{ duration: 0.3 }}
-      />
     </div>
   );
 }
@@ -125,15 +115,6 @@ function AnimatedTextarea({
       >
         {placeholder}
       </motion.label>
-      <motion.div
-        className="absolute bottom-0 left-1/2 h-0.5 bg-blue rounded-full"
-        initial={{ width: 0, x: "-50%" }}
-        animate={{
-          width: isFocused ? "100%" : 0,
-          x: "-50%",
-        }}
-        transition={{ duration: 0.3 }}
-      />
     </div>
   );
 }
@@ -160,7 +141,7 @@ function SocialLink({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay }}
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -4, transition: { type: "tween", duration: 0.2 } }}
     >
       <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue/10 group-hover:bg-blue/20 transition-colors duration-300">
         <Icon className="h-5 w-5 text-blue" />
@@ -432,7 +413,7 @@ export function Contact() {
           {/* Contact info - Takes 2 columns */}
           <div className="lg:col-span-2 space-y-6">
             <ScrollReveal>
-              <div className="p-6 rounded-2xl bg-card-bg/80 backdrop-blur-sm border border-card-border shadow-card">
+              <div className="p-6 rounded-2xl bg-card-bg border border-card-border-strong">
                 <h3 className="text-lg font-bold text-foreground mb-4">
                   Direct Contact
                 </h3>
@@ -475,7 +456,7 @@ export function Contact() {
             </ScrollReveal>
 
             <ScrollReveal>
-              <div className="p-6 rounded-2xl bg-card-bg/80 backdrop-blur-sm border border-card-border shadow-card">
+              <div className="p-6 rounded-2xl bg-card-bg border border-card-border-strong">
                 <h3 className="text-lg font-bold text-foreground mb-4">
                   Connect Online
                 </h3>
@@ -499,7 +480,7 @@ export function Contact() {
             {/* Availability badge */}
             <ScrollReveal>
               <motion.div
-                className="p-6 rounded-2xl bg-gradient-to-br from-blue/10 to-blue/5 border border-blue/20"
+                className="p-6 rounded-2xl bg-gradient-to-br from-blue/10 to-blue/5 dark:from-transparent dark:to-transparent dark:bg-card-bg-solid border border-blue/20"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
