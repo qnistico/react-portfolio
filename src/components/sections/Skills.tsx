@@ -10,12 +10,12 @@ const skills = [
   { name: "TypeScript", icon: "/images/skills/typescript.svg" },
   { name: "Next.js", icon: "/images/skills/nextjs.svg" },
   { name: "Tailwind", icon: "/images/skills/tailwind.svg" },
-  { name: "WordPress", icon: "/images/skills/wordpress.png" },
-  { name: "Figma", icon: "/images/skills/figma.png" },
-  { name: "Git", icon: "/images/skills/git.png" },
+  { name: "WordPress", icon: "/images/skills/wordpress.webp" },
+  { name: "Figma", icon: "/images/skills/figma.webp" },
+  { name: "Git", icon: "/images/skills/git.webp" },
   { name: "GitHub", icon: "/images/skills/github.svg" },
-  { name: "UI/UX", icon: "/images/skills/uiux.png" },
-  { name: "RWD", icon: "/images/skills/rwd.png" },
+  { name: "UI/UX", icon: "/images/skills/uiux.webp" },
+  { name: "RWD", icon: "/images/skills/rwd.webp" },
 ];
 
 export function Skills() {

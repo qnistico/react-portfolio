@@ -74,7 +74,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-blue/20 rounded-2xl blur-3xl scale-90" />
                 <div className="about-image relative w-72 h-72 md:w-96 md:h-96 rounded-2xl overflow-hidden">
                   <Image
-                    src="/images/aboutportraitDark.png"
+                    src="/images/aboutportraitDark.webp"
                     alt="Quinton Nistico"
                     fill
                     className={`object-contain ${
@@ -84,7 +84,7 @@ export default function AboutPage() {
                     priority
                   />
                   <Image
-                    src="/images/aboutportraitLight.png"
+                    src="/images/aboutportraitLight.webp"
                     alt="Quinton Nistico"
                     fill
                     className={`object-contain ${

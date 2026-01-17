@@ -44,7 +44,7 @@ function ProjectCard({
     >
       <div
         ref={cardRef}
-        className="group h-full flex flex-col rounded-2xl bg-card-bg border border-card-border shadow-card overflow-hidden transition-all duration-300 hover:border-blue/30 hover:shadow-lg hover:shadow-shadow-hover relative"
+        className="project-card group h-full flex flex-col rounded-2xl bg-card-bg border border-card-border shadow-card overflow-hidden transition-all duration-300 hover:border-blue/30 hover:shadow-lg hover:shadow-shadow-hover relative"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
@@ -67,13 +67,19 @@ function ProjectCard({
           className="relative h-56 overflow-hidden flex-shrink-0 block"
           onClick={(e) => isDragging && e.preventDefault()}
         >
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover grayscale group-hover:scale-105 project-card-image"
-            draggable={false}
-          />
+          {/* Wrapper div for smooth scale transition */}
+          <div
+            className="absolute inset-0 group-hover:scale-105"
+            style={{ transition: 'transform 500ms ease-out' }}
+          >
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover grayscale"
+              draggable={false}
+            />
+          </div>
           {/* Blue gradient overlay for branded look */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue/50 via-blue/30 to-blue/10" />
           {/* Hover overlay */}

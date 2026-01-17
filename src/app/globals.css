@@ -452,11 +452,6 @@ a, button {
   cursor: pointer;
 }
 
-/* Project card image transition - needs to override global transition */
-.project-card-image {
-  transition: transform 500ms ease-out, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease !important;
-}
-
 .logo-icon {
   width: 68px;
   height: 68px;
@@ -468,4 +463,8 @@ a, button {
 
 .logo-tagline {
   font-size: 18px;
+}
+
+.project-card * {
+  transition: all 0.3s ease !important;
 }

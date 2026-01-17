@@ -169,10 +169,9 @@ export function Hero() {
               {/* Portrait container - show both images, hide one based on theme */}
               <div className="hero-portrait-container relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
                 <Image
-                  src="/images/portraitDark.png"
+                  src="/images/portraitDark.webp"
                   alt="Quinton Nistico"
                   fill
-                  unoptimized
                   className={`object-contain ${
                     isDark ? "opacity-100" : "opacity-0"
                   }`}
@@ -180,10 +179,9 @@ export function Hero() {
                   priority
                 />
                 <Image
-                  src="/images/portraitLight.png"
+                  src="/images/portraitLight.webp"
                   alt="Quinton Nistico"
                   fill
-                  unoptimized
                   className={`object-contain ${
                     isDark ? "opacity-0" : "opacity-100"
                   }`}
