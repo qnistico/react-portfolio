@@ -452,6 +452,10 @@ a, button {
   cursor: pointer;
 }
 
+.logo-container, .logo-container * {
+  transition: all 0.5s ease;
+}
+
 .logo-icon {
   width: 68px;
   height: 68px;
@@ -467,4 +471,17 @@ a, button {
 
 .project-card * {
   transition: all 0.3s ease !important;
+}
+
+.scrolled .logo-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.scrolled .logo-name {
+  font-size: 18px;
+}
+
+.scrolled .logo-tagline {
+  font-size: 14px;
 }
