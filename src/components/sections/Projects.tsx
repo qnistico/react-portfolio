@@ -1,12 +1,162 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, MouseEvent as ReactMouseEvent } from "react";
 import { motion, useScroll } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { agencyProjects, personalProjects, type Project } from "@/data/projects";
+
+// Project card with hover glow effect
+function ProjectCard({
+  project,
+  index,
+  isDragging,
+  showGithub
+}: {
+  project: Project;
+  index: number;
+  isDragging: boolean;
+  showGithub: boolean;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseMove = (e: ReactMouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  return (
+    <motion.div
+      key={project.id}
+      className={`flex-shrink-0 w-[420px] ${!isDragging ? "snap-start" : ""}`}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      <div
+        ref={cardRef}
+        className="group h-full flex flex-col rounded-2xl bg-card-bg border border-card-border shadow-card overflow-hidden transition-all duration-300 hover:border-blue/30 hover:shadow-lg hover:shadow-shadow-hover relative"
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        {/* Hover glow effect */}
+        <div
+          className="pointer-events-none absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{
+            background: isHovering
+              ? `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(96, 165, 250, 0.15), transparent 40%)`
+              : "none",
+          }}
+        />
+
+        {/* Image - clickable */}
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative h-56 overflow-hidden flex-shrink-0 block"
+          onClick={(e) => isDragging && e.preventDefault()}
+        >
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover grayscale group-hover:scale-105 project-card-image"
+            draggable={false}
+          />
+          {/* Blue gradient overlay for branded look */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue/50 via-blue/30 to-blue/10" />
+          {/* Hover overlay */}
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100"
+            style={{ transition: 'opacity 500ms ease-out' }}
+          />
+          <div
+            className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+            style={{ transition: 'opacity 500ms ease-out, transform 500ms ease-out' }}
+          >
+            <ExternalLink className="w-4 h-4" />
+            <span className="text-sm font-medium">View Site</span>
+          </div>
+        </a>
+
+        {/* Content - flex-grow to fill remaining space */}
+        <div className="p-6 flex flex-col flex-grow relative z-20">
+          {/* Meta */}
+          <div className="flex items-center gap-2 text-xs text-text mb-3">
+            <span className="px-2 py-0.5 rounded-full bg-blue/10 text-blue font-medium">
+              {project.year}
+            </span>
+            <span>{project.type}</span>
+          </div>
+
+          {/* Title */}
+          <h4 className="text-xl font-bold text-foreground mb-2 group-hover:text-blue transition-colors">
+            {project.title}
+          </h4>
+
+          {/* Description */}
+          <p className="text-sm text-text line-clamp-2 mb-4">
+            {project.description}
+          </p>
+
+          {/* Tech stack */}
+          <div className="flex flex-wrap gap-1.5 mb-4 min-h-[60px]">
+            {project.techStack && project.techStack.length > 0 && (
+              project.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue/10 text-blue border border-blue/20 h-fit"
+                >
+                  {tech}
+                </span>
+              ))
+            )}
+          </div>
+
+          {/* Spacer to push buttons to bottom */}
+          <div className="flex-grow" />
+
+          {/* Action buttons - always at bottom */}
+          <div className="flex gap-3 pt-2">
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => isDragging && e.preventDefault()}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-button-bg text-white rounded-lg text-sm font-medium hover:bg-button-hover transition-colors"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              View Live
+            </a>
+            {showGithub && project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => isDragging && e.preventDefault()}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-transparent border border-card-border text-foreground rounded-lg text-sm font-medium hover:border-blue hover:text-blue transition-colors"
+              >
+                <SiGithub className="w-3.5 h-3.5" />
+                Source
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 // Reusable scrollable project showcase
 function ProjectShowcase({
@@ -178,105 +328,13 @@ function ProjectShowcase({
         onMouseLeave={handleMouseLeave}
       >
         {projects.map((project, index) => (
-          <motion.div
+          <ProjectCard
             key={project.id}
-            className={`flex-shrink-0 w-[420px] ${!isDragging ? "snap-start" : ""}`}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <div className="group h-full flex flex-col rounded-2xl bg-card-bg border border-card-border shadow-card overflow-hidden transition-all duration-300 hover:border-blue/30 hover:shadow-lg hover:shadow-shadow-hover">
-              {/* Image - clickable */}
-              <a
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative h-56 overflow-hidden flex-shrink-0 block"
-                onClick={(e) => isDragging && e.preventDefault()}
-              >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover grayscale transition-transform duration-500 group-hover:scale-105"
-                  draggable={false}
-                />
-                {/* Blue gradient overlay for branded look */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue/50 via-blue/30 to-blue/10" />
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <ExternalLink className="w-4 h-4" />
-                  <span className="text-sm font-medium">View Site</span>
-                </div>
-              </a>
-
-              {/* Content - flex-grow to fill remaining space */}
-              <div className="p-6 flex flex-col flex-grow">
-                {/* Meta */}
-                <div className="flex items-center gap-2 text-xs text-text mb-3">
-                  <span className="px-2 py-0.5 rounded-full bg-blue/10 text-blue font-medium">
-                    {project.year}
-                  </span>
-                  <span>{project.type}</span>
-                </div>
-
-                {/* Title */}
-                <h4 className="text-xl font-bold text-foreground mb-2 group-hover:text-blue transition-colors">
-                  {project.title}
-                </h4>
-
-                {/* Description */}
-                <p className="text-sm text-text line-clamp-2 mb-4">
-                  {project.description}
-                </p>
-
-                {/* Tech stack */}
-                <div className="flex flex-wrap gap-1.5 mb-4 min-h-[60px]">
-                  {project.techStack && project.techStack.length > 0 && (
-                    project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue/10 text-blue border border-blue/20 h-fit"
-                      >
-                        {tech}
-                      </span>
-                    ))
-                  )}
-                </div>
-
-                {/* Spacer to push buttons to bottom */}
-                <div className="flex-grow" />
-
-                {/* Action buttons - always at bottom */}
-                <div className="flex gap-3 pt-2">
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => isDragging && e.preventDefault()}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-button-bg text-white rounded-lg text-sm font-medium hover:bg-button-hover transition-colors"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                    View Live
-                  </a>
-                  {showGithub && project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => isDragging && e.preventDefault()}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-transparent border border-card-border text-foreground rounded-lg text-sm font-medium hover:border-blue hover:text-blue transition-colors"
-                    >
-                      <SiGithub className="w-3.5 h-3.5" />
-                      Source
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            project={project}
+            index={index}
+            isDragging={isDragging}
+            showGithub={showGithub}
+          />
         ))}
       </div>
 

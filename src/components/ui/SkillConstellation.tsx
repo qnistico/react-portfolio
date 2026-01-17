@@ -65,7 +65,7 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
         viewBox="0 0 500 500"
         preserveAspectRatio="xMidYMid slice"
       >
-        {/* Orbital ring */}
+        {/* Orbital ring - draws itself */}
         <motion.circle
           cx={250}
           cy={250}
@@ -75,13 +75,16 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
           className={isDark ? "text-card-border" : "text-gray-400"}
           strokeWidth={1.5}
           strokeDasharray="4 4"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: ringOpacity, scale: 1 } : { opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.8, delay: baseDelay + 0.2 }}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={isInView ? { pathLength: 1, opacity: ringOpacity } : { pathLength: 0, opacity: 0 }}
+          transition={{
+            pathLength: { duration: 1.2, delay: baseDelay, ease: "easeInOut" },
+            opacity: { duration: 0.5, delay: baseDelay },
+          }}
           style={{ transformOrigin: '250px 250px' }}
         />
 
-        {/* Connection lines from center to each node */}
+        {/* Connection lines from center to each node - with draw animation */}
         {skills.map((_, index) => {
           const pos = getNodePosition(index, skills.length, radius);
           const isActive = activeIndex === index;
@@ -96,12 +99,21 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
               stroke="currentColor"
               className={isActive ? "text-blue" : isDark ? "text-card-border" : "text-gray-400"}
               strokeWidth={isActive ? 2 : 1.5}
-              initial={{ opacity: 0 }}
-              animate={{
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={isInView ? {
+                pathLength: 1,
                 opacity: isActive ? 1 : lineOpacity,
-              }}
+              } : { pathLength: 0, opacity: 0 }}
               transition={{
-                duration: 0.3,
+                pathLength: {
+                  duration: 0.6,
+                  delay: baseDelay + 0.3 + index * 0.05,
+                  ease: "easeOut",
+                },
+                opacity: {
+                  duration: 0.3,
+                  delay: baseDelay + 0.3 + index * 0.05,
+                },
               }}
             />
           );

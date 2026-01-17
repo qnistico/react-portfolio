@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, MouseEvent } from "react";
+import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
 interface MagneticButtonProps {
@@ -27,35 +26,6 @@ export function MagneticButton({
   external = false,
   target,
 }: MagneticButtonProps) {
-  const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const springConfig = { damping: 15, stiffness: 150 };
-  const springX = useSpring(x, springConfig);
-  const springY = useSpring(y, springConfig);
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const distanceX = e.clientX - centerX;
-    const distanceY = e.clientY - centerY;
-
-    // Magnetic pull effect - button moves toward cursor
-    x.set(distanceX * 0.2);
-    y.set(distanceY * 0.2);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   const baseStyles = "relative inline-flex items-center justify-center gap-2 font-medium rounded-full transition-all duration-300 overflow-hidden group";
 
   const variants = {
@@ -98,14 +68,10 @@ export function MagneticButton({
   if (href) {
     return (
       <motion.a
-        ref={ref as React.RefObject<HTMLAnchorElement>}
         href={href}
         target={target || (external ? "_blank" : undefined)}
         rel={isExternal ? "noopener noreferrer" : undefined}
         className={combinedClassName}
-        style={{ x: springX, y: springY }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
         whileTap={{ scale: 0.98 }}
       >
         {content}
@@ -115,12 +81,8 @@ export function MagneticButton({
 
   return (
     <motion.button
-      ref={ref as React.RefObject<HTMLButtonElement>}
       onClick={onClick}
       className={combinedClassName}
-      style={{ x: springX, y: springY }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       whileTap={{ scale: 0.98 }}
     >
       {content}

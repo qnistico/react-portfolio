@@ -85,8 +85,11 @@ export function ThemeToggle() {
           >
             <motion.div
               initial={false}
-              animate={{ rotate: isDark ? 360 : 0 }}
-              transition={{ duration: 0.5 }}
+              animate={{ rotate: isDark ? 360 : 0, scale: [1, 1.2, 1] }}
+              transition={{
+                rotate: { duration: 0.5, ease: "easeInOut" },
+                scale: { duration: 0.3, times: [0, 0.5, 1] }
+              }}
             >
               {isDark ? (
                 <Moon className="h-2.5 w-2.5 text-white" />
