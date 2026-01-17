@@ -72,12 +72,25 @@ export default function AboutPage() {
                 transition={{ duration: 0.6 }}
               >
                 <div className="absolute inset-0 bg-blue/20 rounded-2xl blur-3xl scale-90" />
-                <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-2xl overflow-hidden border border-card-border">
+                <div className="about-image relative w-72 h-72 md:w-96 md:h-96 rounded-2xl overflow-hidden">
                   <Image
-                    src={isDark ? "/images/portraitDark.webp" : "/images/portraitLight.webp"}
+                    src="/images/aboutportraitDark.png"
                     alt="Quinton Nistico"
                     fill
-                    className="object-contain"
+                    className={`object-contain ${
+                      isDark ? "opacity-100" : "opacity-0"
+                    }`}
+                    style={{ transition: 'opacity 0.3s ease' }}
+                    priority
+                  />
+                  <Image
+                    src="/images/aboutportraitLight.png"
+                    alt="Quinton Nistico"
+                    fill
+                    className={`object-contain ${
+                      isDark ? "opacity-0" : "opacity-100"
+                    }`}
+                    style={{ transition: 'opacity 0.3s ease' }}
                     priority
                   />
                 </div>
@@ -279,40 +292,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Education Section */}
-      <section className="px-6 py-20">
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal className="mb-12">
-            <div className="flex items-center gap-4 mb-2">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                <span className="text-blue">Education</span>
-              </h2>
-              <div className="flex-1 h-px bg-gradient-to-r from-blue/50 to-transparent" />
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal>
-            <motion.div
-              className="p-8 rounded-xl bg-card-bg border border-card-border"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center gap-4 mb-2">
-                <div className="w-12 h-12 rounded-lg bg-blue/10 flex items-center justify-center">
-                  <GraduationCap className="w-6 h-6 text-blue" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-foreground">
-                    Temple University
-                  </h3>
-                  <p className="text-text">Bachelor of Science in Computer Science</p>
-                </div>
-              </div>
-            </motion.div>
-          </ScrollReveal>
-        </div>
-      </section>
+      
     </div>
   );
 }

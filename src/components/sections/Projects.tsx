@@ -301,7 +301,7 @@ export function Projects() {
             <h2 className="text-3xl md:text-4xl font-black text-foreground">
               <span className="text-blue">Featured</span> Work
             </h2>
-            <div className="flex-1 h-px bg-gradient-to-r from-blue/50 to-transparent" />
+            <div className="hidden flex-1 h-px bg-gradient-to-r from-blue/50 to-transparent" />
           </div>
           <p className="text-text max-w-2xl">
             Personal projects and freelance work showcasing my full-stack
@@ -319,7 +319,7 @@ export function Projects() {
             <h2 className="text-3xl md:text-4xl font-black text-foreground">
               <span className="text-blue">Agency</span> Portfolio
             </h2>
-            <div className="flex-1 h-px bg-gradient-to-r from-blue/50 to-transparent" />
+            <div className="hidden flex-1 h-px bg-gradient-to-r from-blue/50 to-transparent" />
           </div>
           <p className="text-text max-w-2xl">
             A selection of projects from my 4+ years at{" "}

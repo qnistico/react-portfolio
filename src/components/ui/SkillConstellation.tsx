@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 interface SkillNode {
@@ -16,6 +16,31 @@ interface SkillConstellationProps {
 
 export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillConstellationProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [isDark, setIsDark] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+
+  // Detect theme for different opacity values
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  // Base delay before animations start (0.5s as requested)
+  const baseDelay = 0.5;
+
+  // Different opacity values for light vs dark mode
+  // Light mode needs ~30% more visible, dark mode ~5% more visible
+  const lineOpacity = isDark ? 0.55 : 0.4;
+  const ringOpacity = isDark ? 0.65 : 0.5;
 
   // Calculate positions for nodes in a circle
   const getNodePosition = (index: number, total: number, radius: number) => {
@@ -33,10 +58,10 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
   const centerSize = 96; // 24 * 4 = 96px (w-24)
 
   return (
-    <div className="relative w-full max-w-[600px] mx-auto aspect-square">
-      {/* SVG for connecting lines and orbital ring - centered in container */}
+    <div ref={containerRef} className="relative w-full max-w-[600px] mx-auto aspect-square">
+      {/* SVG for connecting lines and orbital ring - z-0 to stay behind nodes */}
       <svg
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full z-0"
         viewBox="0 0 500 500"
         preserveAspectRatio="xMidYMid slice"
       >
@@ -47,12 +72,12 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
           r={radius}
           fill="none"
           stroke="currentColor"
-          className="text-card-border"
-          strokeWidth={1}
+          className={isDark ? "text-card-border" : "text-gray-400"}
+          strokeWidth={1.5}
           strokeDasharray="4 4"
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          animate={isInView ? { opacity: ringOpacity, scale: 1 } : { opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.8, delay: baseDelay + 0.2 }}
           style={{ transformOrigin: '250px 250px' }}
         />
 
@@ -69,11 +94,11 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
               x2={250 + pos.x}
               y2={250 + pos.y}
               stroke="currentColor"
-              className={isActive ? "text-blue" : "text-card-border"}
-              strokeWidth={isActive ? 2 : 1}
+              className={isActive ? "text-blue" : isDark ? "text-card-border" : "text-gray-400"}
+              strokeWidth={isActive ? 2 : 1.5}
               initial={{ opacity: 0 }}
               animate={{
-                opacity: isActive ? 1 : 0.3,
+                opacity: isActive ? 1 : lineOpacity,
               }}
               transition={{
                 duration: 0.3,
@@ -128,14 +153,14 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
         <motion.div
           className="relative w-full h-full"
           initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, type: "spring" }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+          transition={{ duration: 0.5, delay: baseDelay, type: "spring" }}
         >
           {/* Glow effect */}
           <div className="absolute inset-0 bg-blue/20 rounded-full blur-xl scale-150" />
 
           {/* Center circle */}
-          <div className="relative w-full h-full rounded-full bg-gradient-to-br from-blue to-blue-hover flex items-center justify-center">
+          <div className="techstack-button relative w-full h-full rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-sm">{centerLabel}</span>
           </div>
         </motion.div>
@@ -165,10 +190,10 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
               marginTop: -nodeSize / 2,
             }}
             initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
             transition={{
               duration: 0.5,
-              delay: 0.03 * index,
+              delay: baseDelay + 0.1 + 0.05 * index,
               type: "spring",
               stiffness: 200,
             }}
@@ -185,12 +210,12 @@ export function SkillConstellation({ skills, centerLabel = "Skills" }: SkillCons
               transition={{ duration: 0.2 }}
             />
 
-            {/* Node content */}
+            {/* Node content - solid bg ensures line is hidden behind */}
             <motion.div
               className={`relative w-full h-full rounded-xl flex items-center justify-center cursor-pointer transition-all duration-200 ${
                 isActive
-                  ? "bg-blue/10 border-2 border-blue"
-                  : "bg-card-bg border border-card-border hover:border-blue/50"
+                  ? "bg-skill-node-bg-active border-2 border-blue"
+                  : "bg-skill-node-bg border border-card-border hover:border-blue/50"
               }`}
               whileHover={{ scale: 1.1 }}
             >

@@ -10,7 +10,7 @@ export default function Home() {
       {/* Ambient gradient blobs - dark mode only, stationary at strategic locations */}
       {/* Hero area - top right purple */}
       <div
-        className="ambient-blob"
+        className="ambient-blob ambient-blob-hero"
         style={{
           top: '0',
           right: '-5%',
@@ -22,7 +22,7 @@ export default function Home() {
       />
       {/* Projects section - left side purple */}
       <div
-        className="ambient-blob"
+        className="ambient-blob ambient-blob-projects"
         style={{
           top: '1200px',
           left: '-10%',
@@ -34,7 +34,7 @@ export default function Home() {
       />
       {/* Skills/Contact area - right side cyan accent */}
       <div
-        className="ambient-blob"
+        className="ambient-blob ambient-blob-skills"
         style={{
           top: '2400px',
           right: '0',
@@ -46,7 +46,7 @@ export default function Home() {
       />
       {/* Contact section - bottom left purple glow */}
       <div
-        className="ambient-blob"
+        className="ambient-blob ambient-blob-contact"
         style={{
           bottom: '200px',
           left: '-5%',

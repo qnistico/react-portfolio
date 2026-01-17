@@ -20,6 +20,8 @@
   --nav-bg: rgba(248, 250, 252, 0.9);
   --gradient-start: rgba(37, 99, 235, 0.05);
   --gradient-end: rgba(59, 130, 246, 0.02);
+  --skill-node-bg: #ffffff;
+  --skill-node-bg-active: #e8edfa;
 }
 
 .dark {
@@ -38,6 +40,8 @@
   --nav-bg: rgba(2, 6, 23, 0.9);
   --gradient-start: rgba(96, 165, 250, 0.1);
   --gradient-end: rgba(59, 130, 246, 0.05);
+  --skill-node-bg: #0f172a;
+  --skill-node-bg-active: #111d2e;
 }
 
 
@@ -104,13 +108,18 @@
   --color-nav-bg: var(--nav-bg);
   --color-gradient-start: var(--gradient-start);
   --color-gradient-end: var(--gradient-end);
+  --color-skill-node-bg: var(--skill-node-bg);
+  --color-skill-node-bg-active: var(--skill-node-bg-active);
   --shadow-card: var(--card-shadow);
   --font-sans: "Roboto", system-ui, sans-serif;
 }
 
-/* Smooth theme transition */
-html {
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* Smooth theme transition for all elements */
+html,
+html *,
+html *::before,
+html *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, fill 0.3s ease, stroke 0.3s ease, box-shadow 0.3s ease;
 }
 
 body {
@@ -288,6 +297,18 @@ html {
   overflow: hidden;
 }
 
+/* Hero */
+
+.hero-portrait-container {
+  width: 500px;
+  height: 500px;
+}
+
+.about-image {
+  width: 500px;
+  height: 500px;
+}
+
 /* Dark mode ambient gradient blobs - stationary, not fixed */
 .ambient-blob {
   position: absolute;
@@ -376,6 +397,10 @@ html {
   --stripe-columns: 4;
 }
 
+.techstack-button {
+  background: #1d4ed8 !important;
+}
+
 /* Responsive: 2 columns on tablet */
 @media (max-width: 1024px) {
   .stripe-grid--4-col {
@@ -425,4 +450,17 @@ html {
 
 a, button {
   cursor: pointer;
+}
+
+.logo-icon {
+  width: 68px;
+  height: 68px;
+}
+
+.logo-name {
+  font-size: 24px;
+}
+
+.logo-tagline {
+  font-size: 18px;
 }

@@ -55,7 +55,7 @@ export function Header() {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-nav-bg backdrop-blur-md shadow-lg py-3"
+            ? "scrolled bg-nav-bg backdrop-blur-md shadow-lg py-3"
             : "bg-transparent py-5"
         }`}
         initial={{ y: -100 }}
@@ -69,9 +69,9 @@ export function Header() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <Link href="/" className="logo-container flex items-center gap-0.5" aria-label="Home">
+            <Link href="/" className="logo-container flex items-center gap-2" aria-label="Home">
               {/* Stylized Q icon with </> inside */}
-              <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-blue">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-icon w-9 h-9 flex-shrink-0 text-blue">
                 {/* Q shape - thinner stroke for more inner space */}
                 <path d="M20 3C10.611 3 3 10.611 3 20C3 29.389 10.611 37 20 37C24 37 27.6 35.7 30.5 33.4L33.5 37L38 33L35 29.5C36.9 26.8 38 23.5 38 20C38 10.611 30.389 3 20 3ZM20 32C13.373 32 8 26.627 8 20C8 13.373 13.373 8 20 8C26.627 8 32 13.373 32 20C32 26.627 26.627 32 20 32Z" fill="currentColor"/>
                 {/* </> symbol - smaller with more breathing room */}
@@ -79,10 +79,15 @@ export function Header() {
                 <path d="M23 16L26 20L23 24" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M21 15L19 25" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
               </svg>
-              {/* "uinton" text - completing the wordmark */}
-              <span className="text-xl font-bold tracking-tight text-foreground">
-                uinton
-              </span>
+              {/* Two-line logo text */}
+              <div className="logo-text flex flex-col leading-tight">
+                <span className="logo-name text-base font-bold tracking-tight text-foreground">
+                  Quinton Nistico
+                </span>
+                <span className="logo-tagline text-xs font-medium tracking-wide text-blue">
+                  Web Development
+                </span>
+              </div>
             </Link>
           </motion.div>
 

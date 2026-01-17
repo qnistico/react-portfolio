@@ -60,7 +60,7 @@ export function MagneticButton({
 
   const variants = {
     primary: "bg-button-bg text-white hover:bg-button-hover shadow-lg hover:shadow-xl hover:shadow-shadow-hover",
-    secondary: "bg-card-bg border border-card-border text-foreground hover:border-blue hover:text-blue",
+    secondary: "bg-card-bg border border-blue/50 text-foreground hover:border-blue hover:text-blue",
     ghost: "text-foreground hover:text-blue",
   };
 
