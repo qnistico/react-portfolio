@@ -17,7 +17,13 @@ const navLinks = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
   const { isLoading } = useLoading();
+
+  // Track when component has mounted on client
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,8 +58,9 @@ export function Header() {
     };
   }, [isMobileMenuOpen]);
 
-  // Don't render header at all during loading
-  if (isLoading) {
+  // Don't render header until mounted on client AND loading is complete
+  // This prevents any SSR/hydration flash
+  if (!hasMounted || isLoading) {
     return null;
   }
 

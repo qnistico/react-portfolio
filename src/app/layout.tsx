@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { LoadingProvider } from "@/context/LoadingContext";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
 // Custom cursor disabled - using default cursor
 // import { CustomCursor } from "@/components/ui/CustomCursor";
 
@@ -170,6 +171,7 @@ export default function RootLayout({
       </head>
       <body className={`${roboto.variable} font-sans antialiased`}>
         <LoadingProvider>
+          <LoadingScreen />
           {/* <CustomCursor /> */}
           {/* Stripe-style vertical lines */}
           <div className="stripe-lines" aria-hidden="true" />
